@@ -47,7 +47,7 @@ const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, check
       <button className="cart__button-order cart__button-order--shipping" onClick={handleShippingWrapper}>Shipping</button>
       <StripeCheckout
         ComponentClass="div"
-        stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
+        stripeKey={'pk_test_51H4BUDKgpGw8RTyJOmzDcz6E4HWWiglzpRFeKtKur4YbHQhPbArf5ZL0wkDN8PrPptMFv7Vq7LmP95iYRrlk4YxY00ROLDorZV'}
         token={handleCheckout}
         name='Nike'
         amount={Math.round(totalPrice * 100)}
