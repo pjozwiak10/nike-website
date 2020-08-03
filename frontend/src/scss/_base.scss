@@ -61,7 +61,7 @@ a {
   }
 }
 
-input {
+input, textarea {
   @media(min-width: 1024px) {
     cursor: none;
   }
