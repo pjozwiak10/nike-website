@@ -11,7 +11,7 @@ const orders = require('./api/routes/orders');
 
 const app = express();
 app.use((req, res, next) => {
-  const allowedOrigins = ['http://localhost:3000'];
+  const allowedOrigins = ['http://localhost:3000/', 'https://nike-website-mern.herokuapp.com/'];
   const origin = req.headers.origin;
   if (allowedOrigins.indexOf(origin) > -1) {
     cors({ origin: origin, credentials: true, });
