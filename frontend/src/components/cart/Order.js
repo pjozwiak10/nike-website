@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gsap from 'gsap';
 import Loader from '../loader/Loader';
-import runtimeEnv from '@mars/heroku-js-runtime-env';
 
 const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, checkoutValidation, handleOrderMsg, orderMsg, loading }) => {
-  const env = runtimeEnv();
 
   const [shippingState, setShippingState] = useState(false);
 
@@ -49,7 +47,7 @@ const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, check
       <button className="cart__button-order cart__button-order--shipping" onClick={handleShippingWrapper}>Shipping</button>
       <StripeCheckout
         ComponentClass="div"
-        stripeKey={env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
+        stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
         token={handleCheckout}
         name='Nike'
         amount={Math.round(totalPrice * 100)}

@@ -14,6 +14,7 @@ import Account from './pages/Account';
 import PrivateRoute from './router-components/PrivateRoute';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Cursor from './components/cursor/Cursor';
+require('dotenv').config();
 
 const App = () => {
   useWindowSize();
