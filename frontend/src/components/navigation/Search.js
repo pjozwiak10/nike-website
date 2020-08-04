@@ -13,8 +13,8 @@ const Search = ({ searchState, setSearchState, history }) => {
 
   useEffect(() => {
     if (searchState) {
-      document.querySelector('.nav__search-input').focus();
       if (isLaptop) {
+        document.querySelector('.nav__search-input').focus();
         gsap.to('.nav__search', { duration: 0, display: 'grid' });
         gsap.to('.nav__search', { duration: 0.5, opacity: 1 });
       } else {
