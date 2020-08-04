@@ -1,10 +1,11 @@
-# automobili-lamborghini
-Automobili Lamborghini
+# nike-website
+Nike Website
 
-Website dedicated to automobiles lamborghini<br/><br/>
+Nike online store website<br/><br/>
 
 Technologies that have been used:</br>
 -JavaScript</br>
+-HTML</br>
 -React</br>
 -Redux</br>
 -CSS/SCSS</br>
