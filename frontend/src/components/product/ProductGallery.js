@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import Swiper from 'react-id-swiper';
 
-const ProductGallery = ({ product, isLaptop, isDesktop }) => {
+const ProductGallery = memo(({ product, isLaptop, isDesktop }) => {
 
   useEffect(() => {
     if (isDesktop) {
@@ -43,6 +43,6 @@ const ProductGallery = ({ product, isLaptop, isDesktop }) => {
       </Swiper>
     </section>
   )
-}
+});
 
 export default ProductGallery;

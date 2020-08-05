@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PageTransition from '../components/page-transition/PageTransition';
@@ -34,7 +34,7 @@ const ShoppingCart = ({ cart, user, emptyBasket, addToCart, removeFromCart, remo
     }, 500)
   }, [shippingData, user.isAuthenticated])
 
-  const handleCheckout = async (token) => {
+  const handleCheckout = useCallback(async (token) => {
     if (!user.isAuthenticated) return setOrderMsg({ msg: 'Please log in to place an order', color: '#bd0000' });
     const { address, city, zipCode, country, phone } = shippingData;
     if (!address || !city || !zipCode || !country || !phone) return setOrderMsg({ msg: 'Please complete the shipping details', color: '#bd0000' });
@@ -61,21 +61,21 @@ const ShoppingCart = ({ cart, user, emptyBasket, addToCart, removeFromCart, remo
       setOrderMsg({ msg: err.response.data.msg, color: '#bd0000' });
       throw err;
     }
-  }
+  }, [cart, emptyBasket, history, shippingData, totalPrice, user._id, user.email, user.isAuthenticated]);
 
-  const handleShipping = (e) => {
+  const handleShipping = useCallback((e) => {
     e.persist();
     setShippingData(state => ({
       ...state,
       [e.target.name]: e.target.value,
     }))
-  }
+  }, [])
 
-  const handleOrderMsg = () => {
+  const handleOrderMsg = useCallback(() => {
     if (!user.isAuthenticated) return setOrderMsg({ msg: 'Please log in to place an order', color: '#bd0000' });
     if (checkoutValidation) setOrderMsg({ msg: 'Please complete the shipping details', color: '#bd0000' })
     else setOrderMsg({ msg: '', color: '' });
-  }
+  }, [checkoutValidation, user.isAuthenticated]);
 
   return (
     <PageTransition>

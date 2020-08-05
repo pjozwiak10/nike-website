@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as JordanLogo } from '../../assets/home/jordan-logo.svg';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useMediaQuery } from 'react-responsive';
 
-const HotspotBanner = () => {
+const HotspotBanner = memo(() => {
   const controlsFirstImage = useAnimation();
   const controlsSecondImage = useAnimation();
   const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
@@ -67,6 +67,6 @@ const HotspotBanner = () => {
       </motion.div>
     </section>
   )
-}
+});
 
 export default HotspotBanner;

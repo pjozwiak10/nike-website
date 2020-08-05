@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gsap from 'gsap';
 import Loader from '../loader/Loader';
 
-const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, checkoutValidation, handleOrderMsg, orderMsg, loading }) => {
+const Order = memo(({ totalPrice, handleCheckout, handleShipping, shippingData, checkoutValidation, handleOrderMsg, orderMsg, loading }) => {
 
   const [shippingState, setShippingState] = useState(false);
 
-  const handleShippingWrapper = () => {
+  const handleShippingWrapper = useCallback(() => {
     if (shippingState) {
       gsap.to('.cart__shipping-wrapper', { duration: 0.3, x: 100, opacity: 0 });
       gsap.to('.cart__shipping-wrapper', { duration: 0, display: 'none', delay: 0.3, onComplete: () => setShippingState(false) })
@@ -15,7 +15,7 @@ const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, check
       gsap.to('.cart__shipping-wrapper', { duration: 0, display: 'block' })
       gsap.to('.cart__shipping-wrapper', { duration: 0.3, x: 0, opacity: 1, onComplete: () => setShippingState(true) });
     }
-  }
+  }, [shippingState]);
 
   return (
     <div className="cart__order">
@@ -61,6 +61,6 @@ const Order = ({ totalPrice, handleCheckout, handleShipping, shippingData, check
       {orderMsg.msg && <span className="cart__order-message" style={{ color: orderMsg.color }}>{orderMsg.msg}</span>}
     </div>
   )
-}
+});
 
 export default Order

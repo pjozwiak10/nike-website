@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-const Hotspot = ({ hotspotProducts }) => {
+const Hotspot = memo(({ hotspotProducts }) => {
   return (
     <section className="product__hotspot hotspot">
       <p className="hotspot__headline">You Might Also Like</p>
@@ -19,6 +19,6 @@ const Hotspot = ({ hotspotProducts }) => {
       </div>
     </section>
   )
-}
+});
 
 export default Hotspot

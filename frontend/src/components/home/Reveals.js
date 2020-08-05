@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
-import Reveal from './Reveal';
+import React, { useRef, memo, lazy, Suspense } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import useHoverEffect from '../../hooks/useHoverEffect';
+const Reveal = lazy(() => import('./Reveal'));
 
-const Reveals = () => {
+const Reveals = memo(() => {
   const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
   const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isDesktop = useMediaQuery({ query: '(min-width: 1280px)' });
@@ -26,11 +26,13 @@ const Reveals = () => {
   return (
     <section className="home__reveals reveals">
       <h1 className="reveals__headline">New reveals</h1>
-      {reveals.current.map(reveal => (
-        <Reveal reveal={reveal} key={reveal.modelName} />
-      ))}
+      <Suspense fallback>
+        {reveals.current.map(reveal => (
+          <Reveal reveal={reveal} key={reveal.modelName} />
+        ))}
+      </Suspense>
     </section>
   )
-}
+});
 
 export default Reveals;

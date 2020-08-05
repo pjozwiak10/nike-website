@@ -3,8 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import PageTransition from '../components/page-transition/PageTransition';
 
 const OrderConfirmation = ({ history }) => {
-  // const orderInfo = useRef(history.location.state ? history.location.state.order : null);
-  const orderInfo = useRef(true);
+  const orderInfo = useRef(history.location.state ? history.location.state.order : null);
   return (
     <PageTransition>
       {orderInfo.current ? <div className="order-confirmation">

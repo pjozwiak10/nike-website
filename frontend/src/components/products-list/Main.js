@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-const Main = ({ searchedProducts, title, params, handleHoverProduct, hoverProduct, isLaptop, handleHoverActiveVariant, activeVariant }) => {
+const Main = memo(({ searchedProducts, title, params, handleHoverProduct, hoverProduct, isLaptop, handleHoverActiveVariant, activeVariant }) => {
 
-  const handleWheelVariants = (e) => {
+  const handleWheelVariants = useCallback((e) => {
     const el = e.currentTarget;
     if (el.scrollWidth <= el.clientWidth) return;
     const toLeft = e.deltaY < 0 && el.scrollLeft > 0;
@@ -13,7 +13,7 @@ const Main = ({ searchedProducts, title, params, handleHoverProduct, hoverProduc
     window.onscroll = () => { window.scrollTo(x, y) };
     if (toLeft || toRight) el.scrollBy({ left: e.deltaY / 10 });
     if (e.type === 'mouseleave') window.onscroll = undefined;
-  }
+  }, [])
 
   return (
     <main className="products-list__main">
@@ -53,6 +53,6 @@ const Main = ({ searchedProducts, title, params, handleHoverProduct, hoverProduc
       }
     </main >
   )
-}
+});
 
 export default Main

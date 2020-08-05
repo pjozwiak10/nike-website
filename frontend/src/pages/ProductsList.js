@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import PageTransition from '../components/page-transition/PageTransition';
 import products from '../data/products';
 import Main from '../components/products-list/Main';
@@ -37,17 +37,17 @@ const ProductsList = ({ match }) => {
     }
   }, [match.params.category, match.params.search]);
 
-  const handleHoverProduct = (e, id) => {
+  const handleHoverProduct = useCallback((e, id) => {
     setHoverProduct(id);
     if (e.type === 'mouseleave') {
       setHoverProduct(null);
       setActiveVariant({ id: null, image: null });
     }
-  }
+  }, [])
 
-  const handleHoverActiveVariant = (id, image) => {
+  const handleHoverActiveVariant = useCallback((id, image) => {
     setActiveVariant({ id, image });
-  }
+  }, [])
 
   return (
     <PageTransition>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Menu from '../components/navigation/Menu';
@@ -24,10 +24,10 @@ const Navigation = ({ history, cart }) => {
     });
   }, [history])
 
-  const showSearch = () => {
+  const showSearch = useCallback(() => {
     setSearchState(true);
     if (menuState) setMenuState(false);
-  }
+  }, [menuState]);
 
   return (
     <nav className="nav">

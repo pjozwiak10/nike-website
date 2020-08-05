@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Swiper from 'react-id-swiper';
 
-const Banner = () => {
+const Banner = memo(() => {
   const params = {
     containerClass: 'swiper-container banner__swiper',
     loop: true,
@@ -47,6 +47,6 @@ const Banner = () => {
       </Swiper>
     </section>
   )
-}
+});
 
 export default Banner

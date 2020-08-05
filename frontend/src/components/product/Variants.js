@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-const Variants = ({ product }) => {
+const Variants = memo(({ product }) => {
   return (
     <section className="product__variants">
       {product.variants.map((variant, i) => (
@@ -13,6 +13,6 @@ const Variants = ({ product }) => {
       ))}
     </section>
   )
-}
+});
 
 export default Variants;

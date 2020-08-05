@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
-const Opinions = ({ reviews, averageRate, userReview, handleOpinionsDialogue, handleOpinionsForm }) => {
+const Opinions = memo(({ reviews, averageRate, userReview, handleOpinionsDialogue, handleOpinionsForm }) => {
   const stars = useRef([0, 1, 2, 3, 4]);
   const [opinionsState, setOpinionsState] = useState(false);
   const [opinionsMsg, setOpinionsMsg] = useState({ msg: '', color: '' });
@@ -11,7 +11,7 @@ const Opinions = ({ reviews, averageRate, userReview, handleOpinionsDialogue, ha
     content: '',
   })
 
-  const handleOpinionsInner = () => {
+  const handleOpinionsInner = useCallback(() => {
     if (!opinionsState) {
       gsap.to('.opinions__arrow-left', { duration: 0.5, rotate: -45 })
       gsap.to('.opinions__arrow-right', { duration: 0.5, rotate: 45 })
@@ -21,18 +21,18 @@ const Opinions = ({ reviews, averageRate, userReview, handleOpinionsDialogue, ha
       gsap.to('.opinions__arrow-right', { duration: 0.5, rotate: -45 })
       gsap.to('.opinions__inner', { duration: 0.5, height: 0, onComplete: () => setOpinionsState(false), })
     }
-  }
+  }, [opinionsState]);
 
-  const handleOpinionsValues = (e, value) => {
+  const handleOpinionsValues = useCallback((e, value) => {
     e.persist();
     setOpinionsForm(state => ({
       ...state,
       [e.target.dataset.id]: value,
     }))
-  }
+  }, []);
 
-  const handleIncreaseRate = () => setOpinionsForm(state => ({ ...state, rate: state.rate < 5 ? state.rate + 0.5 : state.rate }));
-  const handleDecreaseRate = () => setOpinionsForm(state => ({ ...state, rate: state.rate > 1 ? state.rate - 0.5 : state.rate }));
+  const handleIncreaseRate = useCallback(() => setOpinionsForm(state => ({ ...state, rate: state.rate < 5 ? state.rate + 0.5 : state.rate })), []);
+  const handleDecreaseRate = useCallback(() => setOpinionsForm(state => ({ ...state, rate: state.rate > 1 ? state.rate - 0.5 : state.rate })), []);
 
   return (
     <section className="product__opinions opinions">
@@ -97,6 +97,6 @@ const Opinions = ({ reviews, averageRate, userReview, handleOpinionsDialogue, ha
       </div>
     </section>
   )
-}
+});
 
 export default Opinions

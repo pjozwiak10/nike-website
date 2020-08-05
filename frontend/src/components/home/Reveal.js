@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { motion, useSpring, useTransform, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 
-const Reveal = ({ reveal }) => {
+const Reveal = memo(({ reveal }) => {
   const xDrag = useSpring(0, { stiffness: 1000, damping: 1000 });
   const fadeIn = useTransform(xDrag, [0, -150], [0.8, 1]);
   const fadeOut = useTransform(xDrag, [0, -150], [0.25, 0]);
@@ -77,6 +77,6 @@ const Reveal = ({ reveal }) => {
       </motion.div>
     </motion.div>
   )
-}
+});
 
 export default Reveal

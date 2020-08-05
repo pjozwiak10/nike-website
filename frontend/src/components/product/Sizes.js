@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 
-const Sizes = ({ product, handleSize, isLaptop }) => {
+const Sizes = memo(({ product, handleSize, isLaptop }) => {
   const [sizeGuideOpen, toggleSizeGuide] = useState(null);
   useEffect(() => {
     if (sizeGuideOpen) document.body.style.overflow = 'hidden';
@@ -68,6 +68,6 @@ const Sizes = ({ product, handleSize, isLaptop }) => {
       </div>
     </section >
   )
-}
+});
 
 export default Sizes

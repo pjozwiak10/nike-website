@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
-const Menu = ({ menuState }) => {
+const Menu = memo(({ menuState }) => {
   const menuTl = useRef(null);
 
   useEffect(() => {
@@ -60,6 +60,6 @@ const Menu = ({ menuState }) => {
       </ul>
     </div>
   )
-}
+});
 
 export default Menu

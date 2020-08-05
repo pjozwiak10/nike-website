@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 
-const ProductPopup = ({ popupMsg, handleDeletePopup, addedProduct }) => {
+const ProductPopup = memo(({ popupMsg, handleDeletePopup, addedProduct }) => {
   useEffect(() => {
     gsap.to('.product__popup-wrapper', { duration: 0, visibility: 'visible' })
     gsap.from('.product__popup-wrapper', { duration: 0.4, opacity: 0 })
@@ -38,6 +38,6 @@ const ProductPopup = ({ popupMsg, handleDeletePopup, addedProduct }) => {
       })()}
     </div>
   )
-}
+});
 
 export default ProductPopup;

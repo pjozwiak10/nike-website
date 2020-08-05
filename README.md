@@ -13,3 +13,4 @@ Technologies that have been used:</br>
 -MongoDB</br>
 -Express</br>
 -Stripe</br>
+-GSAP</br>

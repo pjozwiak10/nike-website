@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-const CartHeader = ({ quantityItems, totalPrice }) => {
+const CartHeader = memo(({ quantityItems, totalPrice }) => {
   return (
     <div className="cart__header">
       <h1 className="cart__headline">Cart</h1>
@@ -10,6 +10,6 @@ const CartHeader = ({ quantityItems, totalPrice }) => {
       </div>
     </div>
   )
-}
+});
 
 export default CartHeader

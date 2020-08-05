@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-const Summary = ({ totalPrice }) => {
+const Summary = memo(({ totalPrice }) => {
   return (
     <div className="cart__summary">
       <h1 className="cart__headline cart__headline--summary">Summary</h1>
@@ -14,6 +14,6 @@ const Summary = ({ totalPrice }) => {
       </div>
     </div>
   )
-}
+});
 
 export default Summary

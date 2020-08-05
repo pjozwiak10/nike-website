@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PageTransition from '../components/page-transition/PageTransition';
-import Banner from '../components/home/Banner';
-import HotspotBanner from '../components/home/HotspotBanner';
-import Reveals from '../components/home/Reveals';
+const Banner = lazy(() => import('../components/home/Banner'));
+const HotspotBanner = lazy(() => import('../components/home/HotspotBanner'));
+const Reveals = lazy(() => import('../components/home/Reveals'));
 
 const Home = () => {
   return (
     <PageTransition>
       <div className="home">
-        <Banner />
-        <HotspotBanner />
-        <Reveals />
+        <Suspense fallback>
+          <Banner />
+          <HotspotBanner />
+          <Reveals />
+        </Suspense>
       </div>
     </PageTransition>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import { connect, useSelector } from 'react-redux';
@@ -95,7 +95,7 @@ const Product = ({ match, addToCart }) => {
     }
   }, [windowSize, product, isLaptop]);
 
-  const handleSize = (e, size) => {
+  const handleSize = useCallback((e, size) => {
     if (disabledClick) return;
     setDisabledClick(true);
     setTimeout(() => setDisabledClick(false), 500);
@@ -115,23 +115,23 @@ const Product = ({ match, addToCart }) => {
         })
       })
     }
-  }
+  }, [disabledClick, stateSize]);
 
-  const handleAddProduct = () => {
+  const handleAddProduct = useCallback(() => {
     if (!stateSize) {
       setPopupMsg('Please choose size to add the product to the cart');
       return;
     };
     addToCart({ ...product, size: stateSize })
     setPopupMsg('added')
-  }
+  }, [stateSize, addToCart, product]);
 
-  const handleDeletePopup = () => {
+  const handleDeletePopup = useCallback(() => {
     gsap.to('.product__popup', { duration: 0.4, opacity: 0 })
     gsap.to('.product__popup-wrapper', { duration: 0.4, opacity: 0, delay: 0.4, onComplete: () => setPopupMsg(''), })
-  }
+  }, [])
 
-  const addToFav = async () => {
+  const addToFav = useCallback(async () => {
     if (!user.isAuthenticated) return setPopupMsg('You have to be logged in to add the product to favourites');
     try {
       const response = await axios.post(`/api/products/wishlist/${productId.current}`, { userId: user._id }, { withCredentials: true });
@@ -140,9 +140,9 @@ const Product = ({ match, addToCart }) => {
     } catch (err) {
       throw err;
     }
-  }
+  }, [user._id, user.isAuthenticated]);
 
-  const removeFromFav = async () => {
+  const removeFromFav = useCallback(async () => {
     try {
       await axios.delete(`/api/products/wishlist/${productId.current}`, { data: { userId: user._id }, withCredentials: true });
       setFavourite(null);
@@ -150,9 +150,9 @@ const Product = ({ match, addToCart }) => {
     } catch (err) {
       throw err;
     }
-  }
+  }, [user._id]);
 
-  const handleOpinionsDialogue = () => {
+  const handleOpinionsDialogue = useCallback(() => {
     if (!user.isAuthenticated) return setPopupMsg('You have to be logged in to add the opinion');
     if (!opinionsDialogue) {
       gsap.to('.opinions__dialogue-wrapper', { duration: 0, display: 'flex' });
@@ -163,9 +163,9 @@ const Product = ({ match, addToCart }) => {
       gsap.to('.opinions__dialogue-wrapper', { duration: 0.4, delay: 0.4, opacity: 0 });
       gsap.to('.opinions__dialogue-wrapper', { duration: 0, delay: 0.8, display: 'none', onComplete: () => setOpinionsDialogue(false) });
     }
-  }
+  }, [opinionsDialogue, user.isAuthenticated]);
 
-  const handleOpinionsForm = async (e, opinionsForm, setOpinionsForm, setOpinionsMsg) => {
+  const handleOpinionsForm = useCallback(async (e, opinionsForm, setOpinionsForm, setOpinionsMsg) => {
     e.preventDefault();
     if (!opinionsForm.content) return setOpinionsMsg({ msg: 'Please enter all fields', color: '#bd0000' });
     const data = { userId: user._id, name: user.name, rate: opinionsForm.rate, content: opinionsForm.content };
@@ -184,7 +184,7 @@ const Product = ({ match, addToCart }) => {
       setOpinionsMsg({ msg: err.response.data.msg, color: '#bd0000' })
       throw err;
     }
-  }
+  }, [handleOpinionsDialogue, reviews, user._id, user.name]);
 
   return (
     <PageTransition>

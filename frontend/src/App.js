@@ -23,7 +23,7 @@ const App = () => {
   return (
     <div className="wrapper">
       {isLaptop && <Cursor />}
-      < Navigation />
+      <Navigation />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path='/' component={Home} />

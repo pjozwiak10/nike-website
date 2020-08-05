@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, memo } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useMediaQuery } from 'react-responsive';
 
-const Search = ({ searchState, setSearchState, history }) => {
+const Search = memo(({ searchState, setSearchState, history }) => {
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
@@ -36,7 +36,7 @@ const Search = ({ searchState, setSearchState, history }) => {
         document.body.style.overflow = 'visible';
       }
     }
-  }, [searchState, isLaptop])
+  }, [searchState, isLaptop]);
 
   const hideSearch = useCallback(() => {
     setSearchState(false);
@@ -60,13 +60,13 @@ const Search = ({ searchState, setSearchState, history }) => {
     }
   }, [searchedProducts])
 
-  const handleSearchInputEnter = (e) => {
+  const handleSearchInputEnter = useCallback((e) => {
     if (e.keyCode === 13 && searchInput) {
       history.push(`/search/s=${searchInput}`);
     }
-  }
+  }, [searchInput, history]);
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = useCallback((e) => {
     const formattedValue = e.target.value.trim().toLowerCase();
     setSearchInput(e.target.value);
     clearTimeout(timeoutSearch.current);
@@ -76,7 +76,7 @@ const Search = ({ searchState, setSearchState, history }) => {
       const searchedProducts = require('../../data/products').default.filter(product => product.name.toLowerCase().includes(formattedValue) || product.colors.toLowerCase().includes(formattedValue) || product.type.toLowerCase().includes(formattedValue) || product.categories.some(category => category.toLowerCase().includes(formattedValue))).sort((a, b) => new Date(b.date) - new Date(a.date));
       setSearchedProducts(searchedProducts);
     }, 1000)
-  }
+  }, []);
 
   return (
     <div className="nav__search">
@@ -110,6 +110,6 @@ const Search = ({ searchState, setSearchState, history }) => {
       </div>
     </div >
   )
-}
+});
 
 export default withRouter(Search);
