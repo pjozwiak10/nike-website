@@ -3,17 +3,6 @@ const router = require('express').Router();
 const isAuth = require('../middleware/isAuth');
 const Product = require('../models/Product');
 
-router.post('/add', isAuth, async (req, res) => {
-  const { productId } = req.body;
-  try {
-    const newProduct = new Product({ productId });
-    await newProduct.save();
-    res.status(200).json({ msg: 'Product successfully added' });
-  } catch (err) {
-    res.status(400).json({ succes: false })
-  }
-});
-
 router.post('/wishlist/:productId', isAuth, async (req, res) => {
   const { productId } = req.params;
   const { userId } = req.body;
